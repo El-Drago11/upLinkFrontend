@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom'
-import { setUser } from '../Store/profileReducer';
+import { setGameData, setUser } from '../Store/profileReducer';
 import { setToken } from '../Store/authReducer';
 
 const Navbar = () => {
@@ -15,6 +15,7 @@ const Navbar = () => {
     localStorage.clear();
     dispatch(setUser(null));
     dispatch(setToken(null));
+    dispatch(setGameData(null));
     navigate('/')
   }
 

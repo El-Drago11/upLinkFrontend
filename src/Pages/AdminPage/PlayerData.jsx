@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { getAllPlayersData } from '../../services/operations/adminApi';
+import { createSocketConnection } from '../../services/socket';
+import { useSelector } from 'react-redux';
 
 const PlayerData = () => {
-
+    const socket = createSocketConnection();
     const [getPlayer, setPlayer] = useState([]);
 
     const fetchPlayerDetails = async () => {
@@ -10,8 +12,23 @@ const PlayerData = () => {
         setPlayer(resp)
     }
 
+    // Update the Players details
+    useEffect(() => {
+        socket.on('player-updated', ()=>fetchPlayerDetails());
+
+        return () => {
+            socket.off('player-updated');
+        };
+    }, []);
+
     useEffect(() => {
         fetchPlayerDetails();
+    }, [])
+
+    useEffect(() => {
+        return () => {
+            socket.disconnect();
+        }
     }, [])
 
     return (
@@ -32,9 +49,9 @@ const PlayerData = () => {
                         getPlayer?.map((items) => (
                             <tr className='border-b-2 border-white font-semibold'>
                                 <td className='border-r-2 border-white truncate py-4'>{items?._id}</td>
-                                <td className={`border-r-2 border-white truncate py-4 ${items?.approved?" text-green-400":"text-red-600"}`}>{items?.approved ?"True":"False"}</td>
+                                <td className={`border-r-2 border-white truncate py-4 ${items?.approved ? " text-green-400" : "text-red-600"}`}>{items?.approved ? "True" : "False"}</td>
                                 <td className='border-r-2 border-white truncate py-4'>{items?.email}</td>
-                                <td className='border-r-2 border-white truncate capitalize py-4'>{items?.firstName+' '+items?.lastName}</td>
+                                <td className='border-r-2 border-white truncate capitalize py-4'>{items?.firstName + ' ' + items?.lastName}</td>
                                 <td className='border-r-2 border-white truncate py-4'>{items?.gameDetails.clickCount}</td>
                             </tr>
                         ))

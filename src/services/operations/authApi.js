@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
 import { apiConnector } from "../apiConnector";
 import { settingsEndpoints } from "../apis";
-import { setUser } from "../../Store/profileReducer";
+import { setGameData, setUser } from "../../Store/profileReducer";
 import { setToken } from "../../Store/authReducer";
 
 export async function login(email, password,dispatch,navigate) {
@@ -12,8 +12,10 @@ export async function login(email, password,dispatch,navigate) {
             toast.success(`Welcome back ${email}`);
             localStorage.setItem("token", JSON.stringify(response.data.user.token))
             localStorage.setItem("user", JSON.stringify(response.data.user))
+            localStorage.setItem('gameData',JSON.stringify(response.data.user.gameDetails) || null),
             dispatch(setUser(response.data.user))
             dispatch(setToken(response.data.user.token))
+            dispatch(setGameData(response.data.user.gameDetails || null))
             console.log(" data accounttype : ",response.data.user.accountType)
             if(response.data.user.accountType==="Player"){
                 navigate('/BananaGame')
