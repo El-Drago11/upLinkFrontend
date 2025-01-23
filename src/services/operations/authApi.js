@@ -14,11 +14,13 @@ export async function login(email, password,dispatch,navigate) {
             localStorage.setItem("user", JSON.stringify(response.data.user))
             dispatch(setUser(response.data.user))
             dispatch(setToken(response.data.user.token))
+            console.log(" data accounttype : ",response.data.user.accountType)
             if(response.data.user.accountType==="Player"){
                 navigate('/BananaGame')
             }   
             if(response.data.user.accountType==="Admin"){
-                navigate('/Admin')
+                console.log("Admin")
+                navigate('admin/dashboard')
             }
         }
     } catch (error) {
