@@ -23,7 +23,6 @@ const PlayerData = () => {
     // Update the Players details
     useEffect(() => {
         socket.on('player-updated', ()=>{
-            console.log("User player data updated : ")
             fetchPlayerDetails()
         });
         return () => {

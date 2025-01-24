@@ -16,12 +16,10 @@ export async function login(email, password,dispatch,navigate) {
             dispatch(setUser(response.data.user))
             dispatch(setToken(response.data.user.token))
             dispatch(setGameData(response.data.user.gameDetails || null))
-            console.log(" data accounttype : ",response.data.user.accountType)
             if(response.data.user.accountType==="Player"){
                 navigate('/BananaGame')
             }   
             if(response.data.user.accountType==="Admin"){
-                console.log("Admin")
                 navigate('admin/dashboard')
             }
         }

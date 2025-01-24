@@ -5,8 +5,6 @@ const PlayerRoute = ({ children }) => {
     const { token } = useSelector((store) => store.auth);
     const { user } = useSelector((store) => store.profile);
 
-    console.log("User : ", user);
-
     // Check if token is valid and account type is 'Player'
     if (token !== 'null' && user?.accountType === 'Player') {
         return children;

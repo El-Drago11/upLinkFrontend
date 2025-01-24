@@ -13,7 +13,6 @@ const Signup = () => {
 
     const userDataSubmission = async(data) => {
         const { firstName, lastName, email, phoneNumber, password, confirmPassword } = data;
-        console.log("Form submit : ", data)
         if (password != confirmPassword) {
             toast.error("Password doen't match");
             return;

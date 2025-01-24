@@ -5,7 +5,6 @@ const AdminRoute = ({children}) => {
 
     const {token} = useSelector((store)=>store.auth)
     const {user} = useSelector((store)=>store.profile)
-    console.log("User admin check : ",user)
     if(token !== 'null' && user?.accountType=='Admin'){
         return children
     }
