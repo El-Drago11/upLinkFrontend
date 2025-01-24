@@ -43,11 +43,11 @@ const BananaGame = () => {
     const bounceEffect = () => {
         setBounce(true)
         setCount((prev) => ++prev)
+        socketConnect.emit('click-event', { gameId: user?.gameDetails?._id });
         audio.play()
         setTimeout(() => {
             setBounce(false)
         }, 100)
-        socketConnect.emit('click-event', { gameId: user?.gameDetails?._id });
     }
 
     useEffect(() => {
