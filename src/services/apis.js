@@ -7,5 +7,6 @@ export const settingsEndpoints = {
 }
 
 export const adminApiEndpoints = {
-    ADMIN_PLAYER_DETAILS_API : BASE_URL+"/admin/getAllPlayer"
+    ADMIN_PLAYER_DETAILS_API : BASE_URL+"/admin/getAllPlayer",
+    ADMIN_PLAYER_STATUS_API : BASE_URL+"/admin/updateUserStatus",
 }

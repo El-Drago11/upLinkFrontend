@@ -17,3 +17,19 @@ export async function getAllPlayersData() {
     // dispatch(setLoginLoading(false));
     return result;
 }
+
+export async function updatePlayerStatus(playerId) {
+    const toastId = toast.loading("Updating User Status");
+    let result=[];
+    try {
+        const response = await apiConnector("PUT", adminApiEndpoints.ADMIN_PLAYER_STATUS_API,null,null,{playerId})
+        result = response;
+    } catch (error) {
+        console.error("Login API Error:", error.response ? error.response.data : error.message);
+        toast.error(error?.response?.data?.message)
+    }
+
+    toast.dismiss(toastId);
+    // dispatch(setLoginLoading(false));
+    return result;
+}

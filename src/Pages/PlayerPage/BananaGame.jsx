@@ -22,18 +22,22 @@ const BananaGame = () => {
 
     const gameData = useSelector((store) => store.profile.gameData)
 
-    useEffect(()=>{
-        setCount(gameData?.clickCount)
-    },[gameData])
-
-    socketConnect.on('connect_error', (err) => {
-        console.error("Socket connection error:", err.message);
+    const logoutUser = ()=>{
         localStorage.clear();
         dispatch(setUser(null));
         dispatch(setToken(null));
         dispatch(setGameData(null))
-        toast.error("Invalid Token at socket connection")
         navigate('/')
+    }
+
+    useEffect(() => {
+        setCount(gameData?.clickCount)
+    }, [gameData])
+
+    socketConnect.on('connect_error', (err) => {
+        console.error("Socket connection error:", err.message);
+        toast.error("Error in socket connection")
+        logoutUser();
     });
 
     const bounceEffect = () => {
@@ -49,10 +53,21 @@ const BananaGame = () => {
     useEffect(() => {
         socketConnect.on('player-updated', (data) => {
             dispatch(setGameData(data.gameResp))
-            localStorage.setItem('gameData',JSON.stringify(data.gameResp))
+            localStorage.setItem('gameData', JSON.stringify(data.gameResp))
         });
         return () => {
             socketConnect.off('player-updated');
+        };
+    }, []);
+
+    useEffect(() => {
+        socketConnect.on('blocked-profile', () => {
+            toast.error("Your profile is blocked by user")
+            logoutUser();
+        });
+
+        return () => {
+            socketConnect.off('blocked-profile');
         };
     }, []);
 

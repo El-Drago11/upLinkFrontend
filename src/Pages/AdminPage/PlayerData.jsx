@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { getAllPlayersData } from '../../services/operations/adminApi';
+import { getAllPlayersData, updatePlayerStatus } from '../../services/operations/adminApi';
 import { createSocketConnection } from '../../services/socket';
-import { useSelector } from 'react-redux';
+
 
 const PlayerData = () => {
     const socket = createSocketConnection();
@@ -10,6 +10,14 @@ const PlayerData = () => {
     const fetchPlayerDetails = async () => {
         const resp = await getAllPlayersData();
         setPlayer(resp)
+    }
+
+    const playerStatus = async(playerId)=>{
+        const resp = await updatePlayerStatus(playerId)
+        if(resp.status===200){
+            fetchPlayerDetails();
+            socket.emit('block-user',{playerId})
+        }
     }
 
     // Update the Players details
@@ -49,7 +57,7 @@ const PlayerData = () => {
                         getPlayer?.map((items) => (
                             <tr className='border-b-2 border-white font-semibold'>
                                 <td className='border-r-2 border-white truncate py-4'>{items?._id}</td>
-                                <td className={`border-r-2 border-white truncate py-4 ${items?.approved ? " text-green-400" : "text-red-600"}`}>{items?.approved ? "True" : "False"}</td>
+                                <td className={`border-r-2 border-white truncate py-4 ${items?.approved ? " text-green-400" : "text-red-600"} cursor-pointer`} onClick={()=>playerStatus(items?._id)}>{items?.approved ? "True" : "False"}</td>
                                 <td className='border-r-2 border-white truncate py-4'>{items?.email}</td>
                                 <td className='border-r-2 border-white truncate capitalize py-4'>{items?.firstName + ' ' + items?.lastName}</td>
                                 <td className='border-r-2 border-white truncate py-4'>{items?.gameDetails.clickCount}</td>
