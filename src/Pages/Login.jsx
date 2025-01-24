@@ -8,7 +8,6 @@ import { useDispatch } from 'react-redux';
 
 
 const Login = () => {
-
     const { register, handleSubmit, formState: { errors } } = useForm();
     const dispatch = useDispatch();
     const navigate = useNavigate()
@@ -22,6 +21,14 @@ const Login = () => {
         <div className='w-11/12 sm:w-full min-h-[90vh] flex justify-center items-center mx-auto'>
             <div className='flex flex-col p-4 bg-yellow-400 min-h-[25rem] rounded-lg items-center justify-evenly'>
                 <div className='text-[2rem] text-center font-extrabold h-fit'>Login</div>
+                <div className='flex flex-col'>
+                    <div>
+                        Admin: admin@gmail.com
+                    </div>
+                    <div>
+                        Password : admin@1
+                    </div>
+                </div>
                 <form onSubmit={handleSubmit(userDataSubmission)}>
                     <label>
                         <p className='mt-4'>Email Address</p>
