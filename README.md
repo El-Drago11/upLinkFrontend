@@ -1,8 +1,9 @@
-# React + Vite
+# Banana Game (React App)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Tech Used : React Js, Socket.io, Javascript, Tailwind, NodeJs, MongoDb
+# FrontEnd-Deployment : Vercel 
+# Backend-Deployment : Render
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# About
+# React gaming app where  created two panel user and admin 
+# Extensive use of Sockets to Get real time update for efficent mangement of the app for the user and By the admin
