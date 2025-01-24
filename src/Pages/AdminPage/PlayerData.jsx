@@ -46,7 +46,7 @@ const PlayerData = () => {
                 <thead className='border-b-2 border-white'>
                     <tr className=' font-extrabold'>
                         <th className='border-r-2 border-white truncate py-4'>UserId</th>
-                        <th className='border-r-2 border-white truncate py-4'>Approved</th>
+                        <th className='border-r-2 border-white truncate py-4'>Approved(Toggle)</th>
                         <th className='border-r-2 border-white truncate py-4'>Email</th>
                         <th className='border-r-2 border-white truncate py-4'>Name</th>
                         <th className='border-r-2 border-white truncate py-4'>Count</th>
@@ -57,7 +57,7 @@ const PlayerData = () => {
                         getPlayer?.map((items) => (
                             <tr className='border-b-2 border-white font-semibold'>
                                 <td className='border-r-2 border-white truncate py-4'>{items?._id}</td>
-                                <td className={`border-r-2 border-white truncate py-4 ${items?.approved ? " text-green-400" : "text-red-600"} cursor-pointer`} onClick={()=>playerStatus(items?._id)}>{items?.approved ? "True" : "False"}</td>
+                                <td className={`border-r-2 border-white truncate py-4  cursor-pointer`} onClick={()=>playerStatus(items?._id)}><button className={`${items?.approved ? " bg-green-400" : "bg-red-600"} p-2 rounded-full shadow-yellow-100 w-1/2`}>{items?.approved ? "True" : "False"}</button></td>
                                 <td className='border-r-2 border-white truncate py-4'>{items?.email}</td>
                                 <td className='border-r-2 border-white truncate capitalize py-4'>{items?.firstName + ' ' + items?.lastName}</td>
                                 <td className='border-r-2 border-white truncate py-4'>{items?.gameDetails.clickCount}</td>
