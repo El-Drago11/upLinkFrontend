@@ -21,12 +21,20 @@ const Login = () => {
         <div className='w-11/12 sm:w-full min-h-[90vh] flex justify-center items-center mx-auto'>
             <div className='flex flex-col p-4 bg-yellow-400 min-h-[25rem] rounded-lg items-center justify-evenly'>
                 <div className='text-[2rem] text-center font-extrabold h-fit'>Login</div>
-                <div className='flex flex-col'>
+                <div className='flex flex-row gap-2 border-2 border-black flex-wrap rounded-md p-2'>
                     <div>
                         Admin: admin@gmail.com
                     </div>
                     <div>
                         Password : admin@1
+                    </div>
+                </div>
+                <div className='flex flex-row gap-2 border-2 border-black flex-wrap rounded-md p-2 mt-2'>
+                    <div>
+                        User : test1@gmail.com
+                    </div>
+                    <div>
+                        Password : test@1
                     </div>
                 </div>
                 <form onSubmit={handleSubmit(userDataSubmission)}>
