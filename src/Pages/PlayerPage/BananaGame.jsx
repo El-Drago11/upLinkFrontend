@@ -18,6 +18,7 @@ const BananaGame = () => {
     const dispatch = useDispatch();
 
     const socketConnect = createSocketConnection()
+    console.log("Socket connection : ",socketConnect)
     const user = JSON.parse(localStorage.getItem('user'))
 
     const gameData = useSelector((store) => store.profile.gameData)
@@ -52,6 +53,7 @@ const BananaGame = () => {
 
     useEffect(() => {
         socketConnect.on('player-updated', (data) => {
+            console.log("player emit data : ",data)
             dispatch(setGameData(data.gameResp))
             localStorage.setItem('gameData', JSON.stringify(data.gameResp))
         });
