@@ -21,3 +21,25 @@ body {
     box-sizing: border-box;
     overflow-x: hidden;
   }
+
+  .pagination{
+    display:  flex;
+    place-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .pagination>.btn{
+    background: red;
+    border-radius: 5%;
+    padding: 0.5rem;
+  }
+  .pages{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    cursor: pointer;
+    font-weight: bolder;
+  }
+  .active-page{
+    color: red;
+  }

@@ -6,7 +6,6 @@ export const apiConnector = async (method, url, bodyData = null, headers = {}, p
     const token = localStorage.getItem("token");
     const authHeaders = token ? { Authorization: `Bearer ${JSON.parse(token)}` } : {};
     const deviceToken = localStorage.getItem('deviceToken')
-    console.log("Api connector")
     try {
         const response = await axiosInstance({
             method,
