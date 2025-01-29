@@ -41,7 +41,7 @@ const BananaGame = () => {
         logoutUser();
     });
 
-     // Proper Debounce function
+     //Debounce function
      const debounce = (func, delay) => {
         return (...args) => {
             clearTimeout(debounceTimer.current);
@@ -53,7 +53,7 @@ const BananaGame = () => {
         socketConnect.emit('click-event', { gameId: user?.gameDetails?._id,getCount });
     }
 
-    // Debounced version of userClicked
+    // updating userClicked using debounce
     const userClicked = useCallback(
         debounce(() => {
             updateUserGame()
@@ -68,8 +68,7 @@ const BananaGame = () => {
         setTimeout(() => {
             setBounce(false);
         }, 100);
-
-        userClicked(); // Now properly debounced
+        userClicked(); 
     };
 
 
