@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import banana_img from '../../assets/banana.png'
 import banana1 from '../../assets/banana1.png'
 import banana2 from '../../assets/banana2.png'
@@ -15,6 +15,7 @@ const BananaGame = () => {
     const navigate = useNavigate();
     const [getCount, setCount] = useState(0);
     const [getBounce, setBounce] = useState(false);
+    const debounceTimer = useRef(null)
     const dispatch = useDispatch();
 
     const socketConnect = createSocketConnection()
@@ -22,7 +23,7 @@ const BananaGame = () => {
 
     const gameData = useSelector((store) => store.profile.gameData)
 
-    const logoutUser = ()=>{
+    const logoutUser = () => {
         localStorage.clear();
         dispatch(setUser(null));
         dispatch(setToken(null));
@@ -40,15 +41,37 @@ const BananaGame = () => {
         logoutUser();
     });
 
-    const bounceEffect = () => {
-        setBounce(true)
-        setCount((prev) => ++prev)
-        socketConnect.emit('click-event', { gameId: user?.gameDetails?._id });
-        audio.play()
-        setTimeout(() => {
-            setBounce(false)
-        }, 100)
+     // Proper Debounce function
+     const debounce = (func, delay) => {
+        return (...args) => {
+            clearTimeout(debounceTimer.current);
+            debounceTimer.current = setTimeout(() => func(...args), delay);
+        };
+    };
+
+    const updateUserGame = ()=>{
+        socketConnect.emit('click-event', { gameId: user?.gameDetails?._id,getCount });
     }
+
+    // Debounced version of userClicked
+    const userClicked = useCallback(
+        debounce(() => {
+            updateUserGame()
+        }, 1000),
+        [getCount]
+    );
+
+    const bounceEffect = () => {
+        setBounce(true);
+        setCount((prev) => prev + 1);
+        audio.play();
+        setTimeout(() => {
+            setBounce(false);
+        }, 100);
+
+        userClicked(); // Now properly debounced
+    };
+
 
     useEffect(() => {
         socketConnect.on('player-updated', (data) => {
