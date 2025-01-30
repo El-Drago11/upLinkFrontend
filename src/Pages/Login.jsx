@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { login } from '../services/operations/authApi';
 import { useDispatch } from 'react-redux';
+import { setLoginLoading } from '../Store/profileReducer';
 
 
 const Login = () => {
@@ -12,6 +13,7 @@ const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate()
     const userDataSubmission = async (data) => {
+        dispatch(setLoginLoading(true))
         const { email, password } = data;
         await login(email, password, dispatch, navigate)
         return;

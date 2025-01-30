@@ -7,12 +7,18 @@ import BananaGame from './Pages/PlayerPage/BananaGame'
 import PlayerRoute from './utils/PlayerRoute'
 import AdminRoute from './utils/AdminRoute'
 import PlayerData from './Pages/AdminPage/PlayerData'
+import { useSelector } from 'react-redux'
+import LoaderScreen from './Common/LoaderScreen'
 
 const App = () => {
 
   const navigate = useNavigate();
   const token = localStorage.getItem('token')
   const user = JSON.parse(localStorage.getItem('user'))
+
+  const {loading} = useSelector((store)=>store.profile)
+
+  console.log("Loading : ",loading)
 
   useEffect(() => {
     if (token) {
@@ -35,12 +41,15 @@ const App = () => {
 
   return (
     <div className='w-screen min-h-screen bg-black text-white flex flex-col'>
+      {
+        loading && <LoaderScreen/>
+      }
       <div className='w-full min-h-fit'>
         <Navbar />
       </div>
       <div className='w-full min-h-[90vh]'>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<Login/>} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/admin/dashboard" element={<AdminRoute><PlayerData /></AdminRoute>} />
           <Route path="/BananaGame" element={<PlayerRoute><BananaGame /></PlayerRoute>} />
