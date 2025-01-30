@@ -39,6 +39,32 @@ const App = () => {
         <Navbar />
       </div>
       <div className='w-full min-h-[90vh]'>
+        <div className='border-2 border-white w-fit rounded-md md:fixed md:top-24 md:left-10'>
+          <div className='flex flex-row gap-2 border-2 border-black flex-wrap rounded-md p-2'>
+            <div>
+              Admin: admin@gmail.com
+            </div>
+            <div>
+              Password : admin@1
+            </div>
+          </div>
+          <div className='flex flex-row gap-2 border-2 border-black flex-wrap rounded-md p-2 mt-2'>
+            <div>
+              User1 : test1@gmail.com
+            </div>
+            <div>
+              Password : test@1
+            </div>
+          </div>
+          <div className='flex flex-row gap-2 border-2 border-black flex-wrap rounded-md p-2 mt-2'>
+            <div>
+              User2 : test2@gmail.com
+            </div>
+            <div>
+              Password : test@2
+            </div>
+          </div>
+        </div>
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
