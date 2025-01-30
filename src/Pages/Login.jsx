@@ -13,24 +13,50 @@ const Login = () => {
     const navigate = useNavigate()
     const userDataSubmission = async (data) => {
         const { email, password } = data;
-        await login(email, password,dispatch,navigate)
+        await login(email, password, dispatch, navigate)
         return;
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         let token = localStorage.getItem('token');
         let user = JSON.parse(localStorage.getItem('user'))
-        if(token !== 'null' && user?.accountType=='Admin'){
+        if (token !== 'null' && user?.accountType == 'Admin') {
             return navigate('/admin/dashboard')
         }
         if (token !== 'null' && user?.accountType === 'Player') {
             return navigate('/BananaGame')
         }
-    
+
     })
 
     return (
-        <div className='w-11/12 sm:w-full min-h-[90vh] flex justify-center items-center mx-auto'>
+        <div className='w-11/12 sm:w-full min-h-[90vh] flex  flex-col md:flex-row gap-10 justify-center items-center mx-auto'>
+            <div className='border-2 border-white w-fit rounded-md md:fixed md:top-24 md:left-10'>
+                <div className='flex flex-row gap-2 border-2 border-black flex-wrap rounded-md p-2'>
+                    <div>
+                        Admin: admin@gmail.com
+                    </div>
+                    <div>
+                        Password : admin@1
+                    </div>
+                </div>
+                <div className='flex flex-row gap-2 border-2 border-black flex-wrap rounded-md p-2 mt-2'>
+                    <div>
+                        User1 : test1@gmail.com
+                    </div>
+                    <div>
+                        Password : test@1
+                    </div>
+                </div>
+                <div className='flex flex-row gap-2 border-2 border-black flex-wrap rounded-md p-2 mt-2'>
+                    <div>
+                        User2 : test2@gmail.com
+                    </div>
+                    <div>
+                        Password : test@2
+                    </div>
+                </div>
+            </div>
             <div className='flex flex-col p-4 bg-yellow-400 min-h-[25rem] rounded-lg items-center justify-evenly'>
                 <div className='text-[2rem] text-center font-extrabold h-fit'>Login</div>
                 <form onSubmit={handleSubmit(userDataSubmission)}>
